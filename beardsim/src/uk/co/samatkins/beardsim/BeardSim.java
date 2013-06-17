@@ -1,66 +1,60 @@
 package uk.co.samatkins.beardsim;
 
-import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-public class BeardSim implements ApplicationListener {
-	private OrthographicCamera camera;
-	private SpriteBatch batch;
-	private Texture texture;
-	private Sprite sprite;
+public class BeardSim extends Game {
+	
+	private Skin skin;
+	
+	private MenuScene menuScene;
+	private PlayScene playScene;
 	
 	@Override
-	public void create() {		
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
+	public void create() {
+		Gdx.graphics.setTitle("Beard Simulator");
+		this.loadSkin();
 		
-		camera = new OrthographicCamera(1, h/w);
-		batch = new SpriteBatch();
+		Gdx.input.setCatchBackKey(true);
 		
-		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		//TODO: Disable logging
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		
-		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
-		
-		sprite = new Sprite(region);
-		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
-		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
-		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+		this.setScreen(getPlayScene());
 	}
 
-	@Override
-	public void dispose() {
-		batch.dispose();
-		texture.dispose();
+	public Skin getSkin() {
+		return this.skin;
 	}
-
-	@Override
-	public void render() {		
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		sprite.draw(batch);
-		batch.end();
+	
+	private void loadSkin() {
+		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("packed.atlas"));
+		skin = new Skin(atlas);
+		skin.load(Gdx.files.internal("skin.json"));
 	}
 
 	@Override
 	public void resize(int width, int height) {
+		super.resize(width, height);
 	}
-
-	@Override
-	public void pause() {
+	
+///// SCENE ACCESSORS /////
+	public MenuScene getMenuScene() {
+		if (this.menuScene == null) {
+			this.menuScene = new MenuScene(this);
+		}
+		
+		return this.menuScene;
 	}
-
-	@Override
-	public void resume() {
+	
+	public PlayScene getPlayScene() {
+		if (this.playScene == null) {
+			this.playScene = new PlayScene(this);
+		}
+		
+		return this.playScene;
 	}
 }
