@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import uk.co.samatkins.Entity;
+import uk.co.samatkins.RotatedRectangle;
 
 public class Razor extends Entity {
 	
@@ -55,4 +56,7 @@ public class Razor extends Entity {
 		setPosition( Gdx.input.getX(), scene.getHeight()-Gdx.input.getY() );
 	}
 
+	public RotatedRectangle getRotatedRectangle() {
+		return new RotatedRectangle(getWidth(), getHeight(), getX(), getY(), getRotation());
+	}
 }

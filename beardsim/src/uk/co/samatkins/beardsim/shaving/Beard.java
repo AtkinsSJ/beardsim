@@ -4,8 +4,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import uk.co.samatkins.Entity;
+import uk.co.samatkins.RotatedRectangle;
 
 public class Beard extends Entity {
 	
@@ -55,5 +59,47 @@ public class Beard extends Entity {
 		
 		batch.begin();
 	}
+	
+	/**
+	 * Slice `amount` off the hair at the given coordinate
+	 * @param x
+	 * @param y
+	 * @param amount
+	 */
+	public void shavePoint(int x, int y, float amount) {
+		// Is coord invalid?
+		if (x < 0 || x >= hairsX || y < 0 || y >= hairsY) {
+			return;
+		}
+		
+		// No hair here, ignore!
+		if (hairs[x][y] <= 0) {
+			return;
+		}
+		
+		if (amount >= hairs[x][y]) {
+			hairs[x][y] = 0;
+			return;
+		}
+		
+		hairs[x][y] -= amount;
+	}
 
+	public void shave(RotatedRectangle area) {
+		Rectangle bounds = area.getBoundingRectangle();
+		Polygon poly = area.getPolygon();
+		
+		int startX = (int) Math.floor((bounds.x - getX()) / hairSpacing) - 1;
+		int startY = (int) Math.floor((bounds.y - getY()) / hairSpacing) - 1;
+		int endX = (int) Math.ceil(bounds.width / hairSpacing) + startX + 2;
+		int endY = (int) Math.ceil(bounds.height / hairSpacing) + startY + 2;
+		
+		for (int x = startX; x < endX; x++) {
+			for (int y = startY; y < endY; y++) {
+				if (poly.contains(x*hairSpacing, y*hairSpacing)) {
+					shavePoint(x,y, 1);
+				}
+			}
+		}
+	}
 }

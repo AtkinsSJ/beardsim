@@ -77,5 +77,13 @@ public class Entity extends Widget {
 	public Vector2 getPosition() {
 		return new Vector2(this.getX(), this.getY());
 	}
+	
+	public float getCentreX() {
+		return getX() + (getWidth()/2);
+	}
+	
+	public float getCentreY() {
+		return getY() + (getHeight()/2);
+	}
 
 }
