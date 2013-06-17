@@ -16,6 +16,7 @@ public class PlayScene extends Scene {
 		backgroundColor = Color.WHITE;
 		
 		beard = new Beard();
+		beard.setColor(Color.BLACK);
 		razor = new Razor();
 	}
 	

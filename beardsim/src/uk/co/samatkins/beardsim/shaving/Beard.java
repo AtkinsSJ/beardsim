@@ -37,7 +37,7 @@ public class Beard extends Entity {
 		shapeRenderer.identity();
 		
 		shapeRenderer.begin(ShapeType.Line);
-		shapeRenderer.setColor(Color.BLACK);
+		shapeRenderer.setColor(getColor());
 		float x1,x2,y1,y2;
 		for (int i=0; i<hairsX; i++) {
 			x1 = getX() + (hairSpacing * i);
