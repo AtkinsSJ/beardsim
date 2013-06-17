@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import uk.co.samatkins.Entity;
 
@@ -23,7 +24,7 @@ public class Razor extends Entity {
 			@Override
 			public boolean scrolled(InputEvent event, float x, float y,
 					int amount) {
-				rotate(amount * scrollRotation);
+				addAction(Actions.rotateBy(amount * scrollRotation, 0.1f));
 				return true;
 			}
 		});
