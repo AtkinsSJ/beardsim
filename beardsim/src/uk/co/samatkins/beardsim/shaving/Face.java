@@ -1,22 +1,31 @@
 package uk.co.samatkins.beardsim.shaving;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.badlogic.gdx.utils.Scaling;
+import uk.co.samatkins.Entity;
 
-public class Face extends Table {
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+public class Face extends Entity {
+	
+	private Beard beard;
 
 	public Face(TextureRegion faceRegion) {
-		Image faceImage = new Image(faceRegion);
-		faceImage.setScaling(Scaling.fill);
-		faceImage.setAlign(Align.center);
-		add(faceImage).expand().fill();
+		this.sprite = new Sprite(faceRegion);
+		setSize(sprite.getWidth(), sprite.getHeight());
 		
-		this.setFillParent(true);
+		beard = new Beard(72, 93, 310, 175);
+		beard.setColor(Color.BLACK);
 	}
 	
+	@Override
+	protected void added() {
+		super.added();
+		this.scene.add(beard);
+	}
 	
+	public Beard getBeard() {
+		return this.beard;
+	}
 
 }

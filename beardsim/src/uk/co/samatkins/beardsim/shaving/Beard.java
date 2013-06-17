@@ -19,8 +19,13 @@ public class Beard extends Entity {
 	
 	private ShapeRenderer shapeRenderer;
 
-	public Beard() {
+	public Beard(int x, int y, int width, int height) {
 		shapeRenderer = new ShapeRenderer();
+		
+		setBounds(x,y,width,height);
+		
+		hairsX = (int) Math.ceil(width / hairSpacing);
+		hairsY = (int) Math.ceil(height / hairSpacing);
 		
 		hairs = new float[hairsX][hairsY];
 		for (int i=0; i<hairsX; i++) {
