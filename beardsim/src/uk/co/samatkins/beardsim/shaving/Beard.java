@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class Beard extends Entity {
 	
 	private float[][] hairs;
+	private boolean[][] canGrow;
 	private int hairsX = 20;
 	private int hairsY = 20;
 	
@@ -28,9 +29,11 @@ public class Beard extends Entity {
 		hairsY = (int) Math.ceil(height / hairSpacing);
 		
 		hairs = new float[hairsX][hairsY];
+		canGrow = new boolean[hairsX][hairsY];
 		for (int i=0; i<hairsX; i++) {
 			for (int j=0; j<hairsY; j++) {
 				hairs[i][j] = 10;
+				canGrow[i][j] = true;
 			}
 		}
 	}
@@ -101,6 +104,23 @@ public class Beard extends Entity {
 			for (int y = startY; y < endY; y++) {
 				if (poly.contains(getX() + (x*hairSpacing), getY() + (y*hairSpacing))) {
 					shavePoint(x,y, 1);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Mark all areas outside the mask area as places that hair cannot grow.
+	 * @param mask
+	 */
+	public void applyMask(Polygon mask) {
+		for (int x = 0; x < hairsX; x++) {
+			for (int y = 0; y < hairsY; y++) {
+				if (mask.contains(getX() + (x*hairSpacing), getY() + (y*hairSpacing))) {
+					canGrow[x][y] = true;
+				} else {
+					canGrow[x][y] = false;
+					hairs[x][y] = 0;
 				}
 			}
 		}
