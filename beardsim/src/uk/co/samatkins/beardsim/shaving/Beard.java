@@ -99,7 +99,7 @@ public class Beard extends Entity {
 		
 		for (int x = startX; x < endX; x++) {
 			for (int y = startY; y < endY; y++) {
-				if (poly.contains(x*hairSpacing, y*hairSpacing)) {
+				if (poly.contains(getX() + (x*hairSpacing), getY() + (y*hairSpacing))) {
 					shavePoint(x,y, 1);
 				}
 			}
