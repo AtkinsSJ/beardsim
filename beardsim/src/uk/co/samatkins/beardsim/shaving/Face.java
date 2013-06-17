@@ -32,7 +32,15 @@ public class Face extends Entity {
 				180, 270,
 				125, 249
 		});
-		beard.applyMask(hairMask);
+		Polygon mouth = new Polygon(new float[]{
+				155, 230,
+				180, 184,
+				260, 181,
+				297, 227,
+				228, 238
+		});
+		
+		beard.applyMask(hairMask, mouth);
 	}
 	
 	@Override

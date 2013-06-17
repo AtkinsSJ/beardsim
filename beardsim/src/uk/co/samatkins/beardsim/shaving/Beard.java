@@ -54,10 +54,12 @@ public class Beard extends Entity {
 			x2 = x1 + hairSpacing/2;
 			
 			for (int j=0; j<hairsY; j++) {
-				y1 = getY() + (hairSpacing * j);
-				y2 = y1 + hairs[i][j];
-				
-				shapeRenderer.line(x1, y1, x2, y2);
+				if (canGrow[i][j]) {
+					y1 = getY() + (hairSpacing * j);
+					y2 = y1 + hairs[i][j];
+					
+					shapeRenderer.line(x1, y1, x2, y2);
+				}
 			}
 		}
 		
@@ -113,10 +115,13 @@ public class Beard extends Entity {
 	 * Mark all areas outside the mask area as places that hair cannot grow.
 	 * @param mask
 	 */
-	public void applyMask(Polygon mask) {
+	public void applyMask(Polygon mask, Polygon mouth) {
+		float xPos, yPos;
 		for (int x = 0; x < hairsX; x++) {
+			xPos = getX() + (x*hairSpacing);
 			for (int y = 0; y < hairsY; y++) {
-				if (mask.contains(getX() + (x*hairSpacing), getY() + (y*hairSpacing))) {
+				yPos = getY() + (y*hairSpacing);
+				if (mask.contains(xPos, yPos) && !mouth.contains(xPos, yPos)) {
 					canGrow[x][y] = true;
 				} else {
 					canGrow[x][y] = false;
