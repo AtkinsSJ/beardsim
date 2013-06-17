@@ -9,7 +9,7 @@ public class Main {
 		cfg.title = "beardsim";
 		cfg.useGL20 = false;
 		cfg.width = 480;
-		cfg.height = 320;
+		cfg.height = 640;
 		
 		new LwjglApplication(new BeardSim(), cfg);
 	}

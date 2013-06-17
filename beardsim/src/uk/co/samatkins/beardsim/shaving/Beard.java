@@ -1,15 +1,13 @@
 package uk.co.samatkins.beardsim.shaving;
 
-import com.badlogic.gdx.graphics.Color;
+import uk.co.samatkins.Entity;
+import uk.co.samatkins.RotatedRectangle;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-
-import uk.co.samatkins.Entity;
-import uk.co.samatkins.RotatedRectangle;
 
 public class Beard extends Entity {
 	

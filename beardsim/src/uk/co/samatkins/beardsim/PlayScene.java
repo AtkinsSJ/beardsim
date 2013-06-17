@@ -5,10 +5,12 @@ import com.badlogic.gdx.graphics.Color;
 import uk.co.samatkins.RotatedRectangle;
 import uk.co.samatkins.Scene;
 import uk.co.samatkins.beardsim.shaving.Beard;
+import uk.co.samatkins.beardsim.shaving.Face;
 import uk.co.samatkins.beardsim.shaving.Razor;
 
 public class PlayScene extends Scene {
 	
+	private Face face;
 	private Beard beard;
 	private Razor razor;
 	
@@ -18,6 +20,8 @@ public class PlayScene extends Scene {
 		super(game);
 		backgroundColor = Color.WHITE;
 		
+		face = new Face(game.getSkin().getRegion("face"));
+		
 		beard = new Beard();
 		beard.setColor(Color.BLACK);
 		razor = new Razor();
@@ -26,6 +30,7 @@ public class PlayScene extends Scene {
 	@Override
 	public void show() {
 		super.show();
+		table.addActor(face);
 		add(beard);
 		add(razor);
 		setScrollFocus(razor);
