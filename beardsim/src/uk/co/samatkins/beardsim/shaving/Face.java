@@ -15,9 +15,6 @@ public class Face extends Entity {
 		this.sprite = new Sprite(faceRegion);
 		setSize(sprite.getWidth(), sprite.getHeight());
 		
-		beard = new Beard(72, 93, 310, 175);
-		beard.setColor(Color.BLACK);
-		
 		Polygon hairMask = new Polygon(new float[]{
 				73, 338,
 				81, 234,
@@ -39,8 +36,9 @@ public class Face extends Entity {
 				297, 227,
 				228, 238
 		});
-		
-		beard.applyMask(hairMask, mouth);
+
+		beard = new Beard(hairMask, mouth);
+		beard.setColor(Color.BLACK);
 	}
 	
 	@Override

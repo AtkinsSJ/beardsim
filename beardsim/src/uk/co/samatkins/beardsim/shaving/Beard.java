@@ -20,13 +20,14 @@ public class Beard extends Entity {
 	
 	private ShapeRenderer shapeRenderer;
 
-	public Beard(int x, int y, int width, int height) {
+	public Beard(Polygon mask, Polygon mouth) { //int x, int y, int width, int height) {
 		shapeRenderer = new ShapeRenderer();
 		
-		setBounds(x,y,width,height);
+		Rectangle area = mask.getBoundingRectangle();		
+		setBounds(area.x, area.y, area.width, area.height);
 		
-		hairsX = (int) Math.ceil(width / hairSpacing);
-		hairsY = (int) Math.ceil(height / hairSpacing);
+		hairsX = (int) Math.ceil(getWidth() / hairSpacing);
+		hairsY = (int) Math.ceil(getHeight() / hairSpacing);
 		
 		hairs = new float[hairsX][hairsY];
 		canGrow = new boolean[hairsX][hairsY];
@@ -36,6 +37,8 @@ public class Beard extends Entity {
 				canGrow[i][j] = true;
 			}
 		}
+		
+		applyMask(mask, mouth);
 	}
 	
 	@Override
