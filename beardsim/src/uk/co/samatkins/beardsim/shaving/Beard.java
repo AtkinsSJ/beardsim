@@ -156,6 +156,9 @@ public class Beard extends Entity {
 	 * @return 0 = not at all symmetrical, 1 = perfect symmetry
 	 */
 	public float evaluateSymmetry() {
+		// TODO: If I don't add any more complexity to this evaluation,
+		// the array can be removed, and only one loop used.
+		
 		float[][] difference = new float[hairsX/2][hairsY];
 		int totalArea = 0;
 		float runningTotal = 0;

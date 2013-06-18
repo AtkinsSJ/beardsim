@@ -3,6 +3,7 @@ package uk.co.samatkins.beardsim;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
@@ -32,7 +33,9 @@ public class BeardSim extends Game {
 	
 	private void loadSkin() {
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("packed.atlas"));
+		BitmapFont font = new BitmapFont();
 		skin = new Skin(atlas);
+		skin.add("default-font", font);
 		skin.load(Gdx.files.internal("skin.json"));
 	}
 

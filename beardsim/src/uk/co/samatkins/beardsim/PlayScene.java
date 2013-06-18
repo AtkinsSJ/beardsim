@@ -1,5 +1,7 @@
 package uk.co.samatkins.beardsim;
 
+import java.text.DecimalFormat;
+
 import uk.co.samatkins.Scene;
 import uk.co.samatkins.beardsim.shaving.Beard;
 import uk.co.samatkins.beardsim.shaving.Face;
@@ -8,12 +10,15 @@ import uk.co.samatkins.beardsim.shaving.Razor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class PlayScene extends Scene {
 	
 	private Face face;
 	private Beard beard;
 	private Razor razor;
+	
+	private Label symmetryLabel;
 	
 	private boolean shaving = false;
 
@@ -24,14 +29,22 @@ public class PlayScene extends Scene {
 		face = new Face(game.getSkin().getRegion("face"));
 		beard = face.getBeard();
 		razor = new Razor();
+		
+		table.bottom();
+		
+		table.add("Symmetry: ");
+		symmetryLabel = new Label("", game.getSkin());
+		table.add(symmetryLabel).row();
 	}
 	
 	@Override
 	public void show() {
-		super.show();
 		add(face);
+		super.show();
 		add(razor);
 		setScrollFocus(razor);
+		
+		setSymmetryLabel( beard.evaluateSymmetry());
 	}
 	
 	@Override
@@ -61,7 +74,13 @@ public class PlayScene extends Scene {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		shaving = false;
+		setSymmetryLabel(beard.evaluateSymmetry());
 		return true;
+	}
+	
+	public void setSymmetryLabel(float symmetry) {
+		DecimalFormat fmt = new DecimalFormat("0.00%");
+		symmetryLabel.setText(fmt.format(symmetry));
 	}
 
 }
