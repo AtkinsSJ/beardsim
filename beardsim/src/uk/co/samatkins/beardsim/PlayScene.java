@@ -5,6 +5,8 @@ import uk.co.samatkins.beardsim.shaving.Beard;
 import uk.co.samatkins.beardsim.shaving.Face;
 import uk.co.samatkins.beardsim.shaving.Razor;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 
 public class PlayScene extends Scene {
@@ -30,6 +32,18 @@ public class PlayScene extends Scene {
 		add(face);
 		add(razor);
 		setScrollFocus(razor);
+	}
+	
+	@Override
+	public boolean keyDown(int keyCode) {
+		if (keyCode == Keys.SPACE) {
+			beard.grow(0.5f);
+			return true;
+		} else if (keyCode == Keys.S) {
+			// Evaluate symmetry
+			Gdx.app.debug("Beard Symmetry", "" + beard.evaluateSymmetry());
+		}
+		return super.keyDown(keyCode);
 	}
 	
 	@Override

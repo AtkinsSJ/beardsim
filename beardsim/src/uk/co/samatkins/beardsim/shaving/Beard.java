@@ -150,4 +150,34 @@ public class Beard extends Entity {
 			}
 		}
 	}
+	
+	/**
+	 * Calculates how symmetrical the beard is, and returns a value between 0 and 1
+	 * @return 0 = not at all symmetrical, 1 = perfect symmetry
+	 */
+	public float evaluateSymmetry() {
+		float[][] difference = new float[hairsX/2][hairsY];
+		int totalArea = 0;
+		float runningTotal = 0;
+		
+		for (int i=0; i<difference.length; i++) {
+			for (int j=0; j<hairsY; j++) {
+				if (canGrow[i][j]) {
+					difference[i][j] = Math.abs(hairs[i][j] - hairs[hairsX-i-1][j]);
+					totalArea++;
+				}
+			}
+		}
+		
+		for (int i=0; i<difference.length; i++) {
+			for (int j=0; j<hairsY; j++) {
+				if (canGrow[i][j] && difference[i][j] < 1) {
+					runningTotal++;
+				}
+			}
+		}
+		
+		return runningTotal / totalArea;
+		
+	}
 }
