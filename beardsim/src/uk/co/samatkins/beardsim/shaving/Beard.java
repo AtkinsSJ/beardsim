@@ -78,6 +78,16 @@ public class Beard extends Entity {
 		batch.begin();
 	}
 	
+	public void grow(float amount) {
+		for (int i=0; i<hairsX; i++) {
+			for (int j=0; j<hairsY; j++) {
+				if (canGrow[i][j]) {
+					hairs[i][j] += amount;
+				}
+			}
+		}
+	}
+	
 	/**
 	 * Slice `amount` off the hair at the given coordinate
 	 * @param x
@@ -91,7 +101,7 @@ public class Beard extends Entity {
 		}
 		
 		// No hair here, ignore!
-		if (hairs[x][y] <= 0) {
+		if (canGrow[x][y] == false) {
 			return;
 		}
 		
