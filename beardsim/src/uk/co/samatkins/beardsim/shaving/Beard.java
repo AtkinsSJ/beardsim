@@ -60,7 +60,7 @@ public class Beard extends Entity {
 			for (int j=0; j<hairsY; j++) {
 				if (canGrow[i][j]) {
 					y1 = getY() + (hairSpacing * j);
-					y2 = y1 + hairs[i][j];
+					y2 = y1 - hairs[i][j];
 					
 					xOff = (float) (hairSpacing/2 * Math.sin(i*j));
 					yOff = (float) (hairSpacing/2 * Math.cos(i*j));
