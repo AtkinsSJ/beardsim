@@ -16,7 +16,7 @@ public class Beard extends Entity {
 	private int hairsX = 20;
 	private int hairsY = 20;
 	
-	private final float hairSpacing = 10;
+	private final float hairSpacing = 5;
 	
 	private ShapeRenderer shapeRenderer;
 
@@ -52,16 +52,23 @@ public class Beard extends Entity {
 		shapeRenderer.begin(ShapeType.Line);
 		shapeRenderer.setColor(getColor());
 		float x1,x2,y1,y2;
+		float xOff, yOff;
 		for (int i=0; i<hairsX; i++) {
 			x1 = getX() + (hairSpacing * i);
-			x2 = x1 + hairSpacing/2;
+			x2 = x1;// + hairSpacing/2;
 			
 			for (int j=0; j<hairsY; j++) {
 				if (canGrow[i][j]) {
 					y1 = getY() + (hairSpacing * j);
 					y2 = y1 + hairs[i][j];
 					
-					shapeRenderer.line(x1, y1, x2, y2);
+					xOff = (float) (hairSpacing/2 * Math.sin(i*j));
+					yOff = (float) (hairSpacing/2 * Math.cos(i*j));
+							
+					shapeRenderer.line(
+							x1 + xOff, y1 + yOff,
+							x2 + xOff, y2 + yOff
+					);
 				}
 			}
 		}
