@@ -14,6 +14,7 @@ public class BeardSim extends Game {
 	private Skin skin;
 	
 	private MenuScene menuScene;
+	private PlayScene playScene;
 	private ShavingScene shavingScene;
 	
 	@Override
@@ -53,6 +54,14 @@ public class BeardSim extends Game {
 		}
 		
 		return this.menuScene;
+	}
+	
+	public PlayScene getPlayScene() {
+		if (this.playScene == null) {
+			this.playScene = new PlayScene(this);
+		}
+		
+		return this.playScene;
 	}
 	
 	public ShavingScene getShavingScene() {
