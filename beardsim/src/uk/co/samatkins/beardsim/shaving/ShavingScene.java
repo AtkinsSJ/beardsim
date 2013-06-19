@@ -1,18 +1,16 @@
-package uk.co.samatkins.beardsim;
+package uk.co.samatkins.beardsim.shaving;
 
 import java.text.DecimalFormat;
 
 import uk.co.samatkins.Scene;
-import uk.co.samatkins.beardsim.shaving.Beard;
-import uk.co.samatkins.beardsim.shaving.Face;
-import uk.co.samatkins.beardsim.shaving.Razor;
+import uk.co.samatkins.beardsim.BeardSim;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
-public class PlayScene extends Scene {
+public class ShavingScene extends Scene {
 	
 	private Face face;
 	private Beard beard;
@@ -22,7 +20,7 @@ public class PlayScene extends Scene {
 	
 	private boolean shaving = false;
 
-	public PlayScene(BeardSim game) {
+	public ShavingScene(BeardSim game) {
 		super(game);
 		backgroundColor = Color.WHITE;
 		

@@ -1,5 +1,7 @@
 package uk.co.samatkins.beardsim;
 
+import uk.co.samatkins.beardsim.shaving.ShavingScene;
+
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -12,7 +14,7 @@ public class BeardSim extends Game {
 	private Skin skin;
 	
 	private MenuScene menuScene;
-	private PlayScene playScene;
+	private ShavingScene shavingScene;
 	
 	@Override
 	public void create() {
@@ -24,7 +26,7 @@ public class BeardSim extends Game {
 		//TODO: Disable logging
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		
-		this.setScreen(getPlayScene());
+		this.setScreen(getShavingScene());
 	}
 
 	public Skin getSkin() {
@@ -53,11 +55,11 @@ public class BeardSim extends Game {
 		return this.menuScene;
 	}
 	
-	public PlayScene getPlayScene() {
-		if (this.playScene == null) {
-			this.playScene = new PlayScene(this);
+	public ShavingScene getShavingScene() {
+		if (this.shavingScene == null) {
+			this.shavingScene = new ShavingScene(this);
 		}
 		
-		return this.playScene;
+		return this.shavingScene;
 	}
 }
