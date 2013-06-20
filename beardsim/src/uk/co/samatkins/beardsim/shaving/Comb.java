@@ -1,9 +1,12 @@
 package uk.co.samatkins.beardsim.shaving;
 
+import uk.co.samatkins.beardsim.shaving.Beard.Hair;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
 
 public class Comb extends Tool {
 	
@@ -36,7 +39,7 @@ public class Comb extends Tool {
 	}
 	
 	@Override
-	public void use(Beard beard) {
-		
+	protected void useOnHair(Hair hair, Vector2 movement) {
+		hair.setAngle(movement.angle());
 	}
 }

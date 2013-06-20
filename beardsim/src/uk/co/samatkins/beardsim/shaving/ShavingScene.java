@@ -8,6 +8,7 @@ import uk.co.samatkins.beardsim.BeardSim;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class ShavingScene extends Scene {
@@ -21,9 +22,12 @@ public class ShavingScene extends Scene {
 	
 	private Label symmetryLabel;
 	
+	private Vector2 mousePos;
+	
 	public ShavingScene(BeardSim game) {
 		super(game);
 		backgroundColor = Color.WHITE;
+		mousePos = new Vector2();
 		
 		face = new Face(game.getSkin().getRegion("face"));
 		beard = face.getBeard();
@@ -45,7 +49,7 @@ public class ShavingScene extends Scene {
 		add(razor);
 		add(comb);
 		
-		setTool(razor);
+		setTool(comb);
 		
 		setSymmetryLabel( beard.evaluateSymmetry());
 	}
@@ -74,13 +78,14 @@ public class ShavingScene extends Scene {
 	
 	@Override
 	public boolean touchDown(float x, float y, int pointer, int button) {
+		mousePos.set(x, this.getHeight() - y);
 		return true;
 	}
 	
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 //		beard.shave(razor.getRotatedRectangle());
-		currentTool.use(beard);
+		currentTool.use(beard, new Vector2(screenX, getHeight() - screenY).sub(mousePos));
 		return true;
 	}
 	
