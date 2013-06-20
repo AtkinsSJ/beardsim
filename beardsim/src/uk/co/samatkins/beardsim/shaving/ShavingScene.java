@@ -19,6 +19,7 @@ public class ShavingScene extends Scene {
 	private Tool currentTool;
 	private Razor razor;
 	private Comb comb;
+	private ColorBrush colorBrush;
 	
 	private Label symmetryLabel;
 	
@@ -34,6 +35,7 @@ public class ShavingScene extends Scene {
 		
 		razor = new Razor();
 		comb = new Comb();
+		colorBrush = new ColorBrush(Color.ORANGE);
 		
 		table.bottom();
 		
@@ -48,8 +50,9 @@ public class ShavingScene extends Scene {
 		super.show();
 		add(razor);
 		add(comb);
+		add(colorBrush);
 		
-		setTool(comb);
+		setTool(colorBrush);
 		
 		setSymmetryLabel( beard.evaluateSymmetry());
 	}
