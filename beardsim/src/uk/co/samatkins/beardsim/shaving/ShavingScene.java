@@ -16,10 +16,10 @@ public class ShavingScene extends Scene {
 	private Beard beard;
 	private Razor razor;
 	
+	private Tool currentTool;
+	
 	private Label symmetryLabel;
 	
-	private boolean shaving = false;
-
 	public ShavingScene(BeardSim game) {
 		super(game);
 		backgroundColor = Color.WHITE;
@@ -40,9 +40,20 @@ public class ShavingScene extends Scene {
 		add(face);
 		super.show();
 		add(razor);
-		setScrollFocus(razor);
+		
+		setTool(razor);
 		
 		setSymmetryLabel( beard.evaluateSymmetry());
+	}
+	
+	public void setTool(Tool tool) {
+		if (currentTool != null) {
+			currentTool.setVisible(false);
+		}
+		
+		currentTool = tool;
+		currentTool.setVisible(true);
+		setScrollFocus(currentTool);
 	}
 	
 	@Override
@@ -59,19 +70,18 @@ public class ShavingScene extends Scene {
 	
 	@Override
 	public boolean touchDown(float x, float y, int pointer, int button) {
-		shaving = true;
 		return true;
 	}
 	
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		beard.shave(razor.getRotatedRectangle());
+//		beard.shave(razor.getRotatedRectangle());
+		currentTool.use(beard);
 		return true;
 	}
 	
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		shaving = false;
 		setSymmetryLabel(beard.evaluateSymmetry());
 		return true;
 	}

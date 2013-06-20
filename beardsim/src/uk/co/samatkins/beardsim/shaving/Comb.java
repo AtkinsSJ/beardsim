@@ -5,17 +5,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
-public class Razor extends Tool {
+public class Comb extends Tool {
 	
 	private ShapeRenderer shapeRenderer;
 
-	public Razor() {
+	public Comb() {
 		super();
 		
 		shapeRenderer = new ShapeRenderer();
-		setSize(50, 20);
+		setSize(80, 30);
 	}
-	
+
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 //		super.draw(batch, parentAlpha);
@@ -27,7 +27,7 @@ public class Razor extends Tool {
 		shapeRenderer.rotate(0, 0, 1, getRotation());
 		
 		shapeRenderer.begin(ShapeType.FilledRectangle);
-		shapeRenderer.setColor(Color.RED);
+		shapeRenderer.setColor(Color.BLACK);
 		shapeRenderer.filledRect(-getWidth()/2, -getHeight()/2, getWidth(), getHeight());
 		
 		shapeRenderer.end();
@@ -37,6 +37,6 @@ public class Razor extends Tool {
 	
 	@Override
 	public void use(Beard beard) {
-		beard.shave(getRotatedRectangle());
+		
 	}
 }

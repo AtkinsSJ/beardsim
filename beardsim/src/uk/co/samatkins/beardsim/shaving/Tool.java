@@ -22,6 +22,8 @@ public class Tool extends Entity {
 				return true;
 			}
 		});
+		
+		setVisible(false);
 	}
 	
 	@Override
@@ -33,5 +35,7 @@ public class Tool extends Entity {
 	public RotatedRectangle getRotatedRectangle() {
 		return new RotatedRectangle(getWidth(), getHeight(), getX(), getY(), getRotation());
 	}
+	
+	public void use(Beard beard) { }
 
 }
