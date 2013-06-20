@@ -16,7 +16,7 @@ public class Beard extends Entity {
 	private int hairsX;
 	private int hairsY;
 	
-	private final float hairSpacing = 5;
+	public final float hairSpacing = 5;
 	
 	private ShapeRenderer shapeRenderer;
 
@@ -66,7 +66,7 @@ public class Beard extends Entity {
 			x = getX() + (hairSpacing * i);
 			
 			for (int j=0; j<hairsY; j++) {
-				if (canGrow(i,j)) {
+				if (hairExists(i,j)) {
 					y = getY() + (hairSpacing * j);
 					
 					xOff = (float) (hairSpacing/2 * Math.sin(i*j));
@@ -82,38 +82,28 @@ public class Beard extends Entity {
 		batch.begin();
 	}
 	
-	public boolean canGrow(int x, int y) {
+	public boolean hairExists(int x, int y) {
+		if (x < 0 || x >= hairsX || y < 0 || y >= hairsY) {
+			return false;
+		}
 		return (hairs[x][y] != null);
+	}
+	
+	public Hair getHair(int x, int y) {
+		if (x < 0 || x >= hairsX || y < 0 || y >= hairsY) {
+			return null;
+		}
+		return hairs[x][y];
 	}
 	
 	public void grow(float amount) {
 		for (int i=0; i<hairsX; i++) {
 			for (int j=0; j<hairsY; j++) {
-				if (canGrow(i,j)) {
+				if (hairExists(i,j)) {
 					hairs[i][j].grow(amount);
 				}
 			}
 		}
-	}
-	
-	/**
-	 * Slice `amount` off the hair at the given coordinate
-	 * @param x
-	 * @param y
-	 * @param amount
-	 */
-	public void shavePoint(int x, int y, float amount) {
-		// Is coord invalid?
-		if (x < 0 || x >= hairsX || y < 0 || y >= hairsY) {
-			return;
-		}
-		
-		// No hair here, ignore!
-		if (!canGrow(x,y)) {
-			return;
-		}
-		
-		hairs[x][y].shave(amount);
 	}
 
 	public void shave(RotatedRectangle area) {
@@ -128,7 +118,9 @@ public class Beard extends Entity {
 		for (int x = startX; x < endX; x++) {
 			for (int y = startY; y < endY; y++) {
 				if (poly.contains(getX() + (x*hairSpacing), getY() + (y*hairSpacing))) {
-					shavePoint(x,y, 1);
+					if (hairExists(x,y)) {
+						getHair(x,y).shave(1);
+					}
 				}
 			}
 		}
@@ -148,10 +140,10 @@ public class Beard extends Entity {
 		
 		for (int i=0; i<difference.length; i++) {
 			for (int j=0; j<hairsY; j++) {
-				if (canGrow(i,j)) {
+				if (hairExists(i,j)) {
 					difference[i][j] = Math.abs(
 							hairs[i][j].getLength()
-							- (canGrow(hairsX-i-1, j)
+							- (hairExists(hairsX-i-1, j)
 									? hairs[hairsX-i-1][j].getLength()
 									: 0)
 					);
@@ -162,7 +154,7 @@ public class Beard extends Entity {
 		
 		for (int i=0; i<difference.length; i++) {
 			for (int j=0; j<hairsY; j++) {
-				if (canGrow(i,j) && difference[i][j] < 1) {
+				if (hairExists(i,j) && difference[i][j] < 1) {
 					runningTotal++;
 				}
 			}

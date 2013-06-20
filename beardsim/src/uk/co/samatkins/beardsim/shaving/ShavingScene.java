@@ -14,9 +14,10 @@ public class ShavingScene extends Scene {
 	
 	private Face face;
 	private Beard beard;
-	private Razor razor;
 	
 	private Tool currentTool;
+	private Razor razor;
+	private Comb comb;
 	
 	private Label symmetryLabel;
 	
@@ -26,7 +27,9 @@ public class ShavingScene extends Scene {
 		
 		face = new Face(game.getSkin().getRegion("face"));
 		beard = face.getBeard();
+		
 		razor = new Razor();
+		comb = new Comb();
 		
 		table.bottom();
 		
@@ -40,6 +43,7 @@ public class ShavingScene extends Scene {
 		add(face);
 		super.show();
 		add(razor);
+		add(comb);
 		
 		setTool(razor);
 		
