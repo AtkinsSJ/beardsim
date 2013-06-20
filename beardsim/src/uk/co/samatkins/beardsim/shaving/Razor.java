@@ -1,34 +1,19 @@
 package uk.co.samatkins.beardsim.shaving;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-import uk.co.samatkins.Entity;
-import uk.co.samatkins.RotatedRectangle;
-
-public class Razor extends Entity {
+public class Razor extends Tool {
 	
 	private ShapeRenderer shapeRenderer;
-	private final float scrollRotation = 5;
 
 	public Razor() {
+		super();
+		
 		shapeRenderer = new ShapeRenderer();
 		setSize(50, 20);
-		
-		addListener(new InputListener() {
-			@Override
-			public boolean scrolled(InputEvent event, float x, float y,
-					int amount) {
-				addAction(Actions.rotateBy(amount * scrollRotation, 0.1f));
-				return true;
-			}
-		});
 	}
 	
 	@Override
@@ -48,15 +33,5 @@ public class Razor extends Entity {
 		shapeRenderer.end();
 		
 		batch.begin();
-	}
-	
-	@Override
-	public void act(float delta) {
-		super.act(delta);
-		setPosition( Gdx.input.getX(), scene.getHeight()-Gdx.input.getY() );
-	}
-
-	public RotatedRectangle getRotatedRectangle() {
-		return new RotatedRectangle(getWidth(), getHeight(), getX(), getY(), getRotation());
 	}
 }
