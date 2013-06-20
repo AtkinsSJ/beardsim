@@ -1,7 +1,6 @@
 package uk.co.samatkins.beardsim.shaving;
 
 import uk.co.samatkins.Entity;
-import uk.co.samatkins.RotatedRectangle;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -16,7 +15,7 @@ public class Beard extends Entity {
 	private int hairsX;
 	private int hairsY;
 	
-	public final float hairSpacing = 5;
+	private final float hairSpacing = 5;
 	
 	private ShapeRenderer shapeRenderer;
 
@@ -82,6 +81,10 @@ public class Beard extends Entity {
 		batch.begin();
 	}
 	
+	public float getHairSpacing() {
+		return hairSpacing;
+	}
+	
 	public boolean hairExists(int x, int y) {
 		if (x < 0 || x >= hairsX || y < 0 || y >= hairsY) {
 			return false;
@@ -96,31 +99,15 @@ public class Beard extends Entity {
 		return hairs[x][y];
 	}
 	
+	/**
+	 * Grow the entire beard
+	 * @param amount
+	 */
 	public void grow(float amount) {
 		for (int i=0; i<hairsX; i++) {
 			for (int j=0; j<hairsY; j++) {
 				if (hairExists(i,j)) {
 					hairs[i][j].grow(amount);
-				}
-			}
-		}
-	}
-
-	public void shave(RotatedRectangle area) {
-		Rectangle bounds = area.getBoundingRectangle();
-		Polygon poly = area.getPolygon();
-		
-		int startX = (int) Math.floor((bounds.x - getX()) / hairSpacing) - 1;
-		int startY = (int) Math.floor((bounds.y - getY()) / hairSpacing) - 1;
-		int endX = (int) Math.ceil(bounds.width / hairSpacing) + startX + 2;
-		int endY = (int) Math.ceil(bounds.height / hairSpacing) + startY + 2;
-		
-		for (int x = startX; x < endX; x++) {
-			for (int y = startY; y < endY; y++) {
-				if (poly.contains(getX() + (x*hairSpacing), getY() + (y*hairSpacing))) {
-					if (hairExists(x,y)) {
-						getHair(x,y).shave(1);
-					}
 				}
 			}
 		}

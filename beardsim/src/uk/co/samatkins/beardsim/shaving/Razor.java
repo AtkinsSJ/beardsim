@@ -1,9 +1,13 @@
 package uk.co.samatkins.beardsim.shaving;
 
+import uk.co.samatkins.RotatedRectangle;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Razor extends Tool {
 	
@@ -37,6 +41,24 @@ public class Razor extends Tool {
 	
 	@Override
 	public void use(Beard beard) {
-		beard.shave(getRotatedRectangle());
+		RotatedRectangle area = getRotatedRectangle();
+		Rectangle bounds = area.getBoundingRectangle();
+		Polygon poly = area.getPolygon();
+		float hairSpacing = beard.getHairSpacing();
+		
+		int startX = (int) Math.floor((bounds.x - beard.getX()) / hairSpacing) - 1;
+		int startY = (int) Math.floor((bounds.y - beard.getY()) / hairSpacing) - 1;
+		int endX = (int) Math.ceil(bounds.width / hairSpacing) + startX + 2;
+		int endY = (int) Math.ceil(bounds.height / hairSpacing) + startY + 2;
+		
+		for (int x = startX; x < endX; x++) {
+			for (int y = startY; y < endY; y++) {
+				if (poly.contains(beard.getX() + (x*hairSpacing), beard.getY() + (y*hairSpacing))) {
+					if (beard.hairExists(x,y)) {
+						beard.getHair(x,y).shave(1);
+					}
+				}
+			}
+		}
 	}
 }
