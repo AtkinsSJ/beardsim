@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Rectangle;
 public class Beard extends Entity {
 	
 	private Hair[][] hairs;
-	private boolean[][] canGrow;
 	private int hairsX;
 	private int hairsY;
 	
@@ -20,7 +19,7 @@ public class Beard extends Entity {
 	
 	private ShapeRenderer shapeRenderer;
 
-	public Beard(Polygon mask, Polygon mouth) { //int x, int y, int width, int height) {
+	public Beard(Polygon mask, Polygon mouth) {
 		shapeRenderer = new ShapeRenderer();
 		
 		Rectangle area = mask.getBoundingRectangle();		
@@ -30,14 +29,7 @@ public class Beard extends Entity {
 		hairsY = (int) Math.ceil(getHeight() / hairSpacing);
 		
 		hairs = new Hair[hairsX][hairsY];
-		canGrow = new boolean[hairsX][hairsY];
-//		for (int i=0; i<hairsX; i++) {
-//			for (int j=0; j<hairsY; j++) {
-//				hairs[i][j] = 10;
-//				canGrow[i][j] = true;
-//			}
-//		}
-//		
+
 		applyMask(mask, mouth);
 	}
 	
@@ -52,10 +44,7 @@ public class Beard extends Entity {
 			for (int y = 0; y < hairsY; y++) {
 				yPos = getY() + (y*hairSpacing);
 				if (mask.contains(xPos, yPos) && !mouth.contains(xPos, yPos)) {
-					canGrow[x][y] = true;
 					hairs[x][y] = new Hair(10);
-				} else {
-					canGrow[x][y] = false;
 				}
 			}
 		}
@@ -63,7 +52,6 @@ public class Beard extends Entity {
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-//		super.draw(batch, parentAlpha);
 		batch.end();
 		
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
@@ -71,26 +59,19 @@ public class Beard extends Entity {
 		
 		shapeRenderer.begin(ShapeType.Line);
 		shapeRenderer.setColor(getColor());
-		float x1,x2,y1,y2;
+		float x,y;
 		float xOff, yOff;
 		for (int i=0; i<hairsX; i++) {
-			x1 = getX() + (hairSpacing * i);
-//			x2 = x1;// + hairSpacing/2;
+			x = getX() + (hairSpacing * i);
 			
 			for (int j=0; j<hairsY; j++) {
 				if (canGrow(i,j)) {
-					y1 = getY() + (hairSpacing * j);
-//					y2 = y1 - hairs[i][j].getLength();
+					y = getY() + (hairSpacing * j);
 					
 					xOff = (float) (hairSpacing/2 * Math.sin(i*j));
 					yOff = (float) (hairSpacing/2 * Math.cos(i*j));
 					
-					hairs[i][j].draw(shapeRenderer, x1 + xOff, y1 + yOff);
-							
-//					shapeRenderer.line(
-//							x1 + xOff, y1 + yOff,
-//							x2 + xOff, y2 + yOff
-//					);
+					hairs[i][j].draw(shapeRenderer, x + xOff, y + yOff);
 				}
 			}
 		}
@@ -101,7 +82,7 @@ public class Beard extends Entity {
 	}
 	
 	public boolean canGrow(int x, int y) {
-		return canGrow[x][y];
+		return (hairs[x][y] != null);
 	}
 	
 	public void grow(float amount) {
