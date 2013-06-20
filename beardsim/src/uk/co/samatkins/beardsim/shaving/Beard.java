@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class Beard extends Entity {
 	
@@ -185,11 +186,13 @@ public class Beard extends Entity {
 		}
 		
 		public void draw(ShapeRenderer shapeRenderer, float x, float y) {
-
-			float x2 = x,
-					y2 = y - length;
+			
+			// For x2,y2, take a line of 'length', and rotate it around x,y
+			Vector2 end = new Vector2(length, 0);
+			end.setAngle(angle);
+			end.add(x,y);
 					
-			shapeRenderer.line( x, y, x2, y2 );
+			shapeRenderer.line( x, y, end.x, end.y );
 		}
 		
 		public float getLength() {
