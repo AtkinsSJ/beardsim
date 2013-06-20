@@ -13,8 +13,8 @@ public class Beard extends Entity {
 	
 	private float[][] hairs;
 	private boolean[][] canGrow;
-	private int hairsX = 20;
-	private int hairsY = 20;
+	private int hairsX;
+	private int hairsY;
 	
 	private final float hairSpacing = 5;
 	
@@ -58,7 +58,7 @@ public class Beard extends Entity {
 			x2 = x1;// + hairSpacing/2;
 			
 			for (int j=0; j<hairsY; j++) {
-				if (canGrow[i][j]) {
+				if (canGrow(i,j)) {
 					y1 = getY() + (hairSpacing * j);
 					y2 = y1 - hairs[i][j];
 					
@@ -78,10 +78,14 @@ public class Beard extends Entity {
 		batch.begin();
 	}
 	
+	public boolean canGrow(int x, int y) {
+		return canGrow[x][y];
+	}
+	
 	public void grow(float amount) {
 		for (int i=0; i<hairsX; i++) {
 			for (int j=0; j<hairsY; j++) {
-				if (canGrow[i][j]) {
+				if (canGrow(i,j)) {
 					hairs[i][j] += amount;
 				}
 			}
@@ -101,7 +105,7 @@ public class Beard extends Entity {
 		}
 		
 		// No hair here, ignore!
-		if (canGrow[x][y] == false) {
+		if (!canGrow(x,y)) {
 			return;
 		}
 		
@@ -165,7 +169,7 @@ public class Beard extends Entity {
 		
 		for (int i=0; i<difference.length; i++) {
 			for (int j=0; j<hairsY; j++) {
-				if (canGrow[i][j]) {
+				if (canGrow(i,j)) {
 					difference[i][j] = Math.abs(hairs[i][j] - hairs[hairsX-i-1][j]);
 					totalArea++;
 				}
@@ -174,7 +178,7 @@ public class Beard extends Entity {
 		
 		for (int i=0; i<difference.length; i++) {
 			for (int j=0; j<hairsY; j++) {
-				if (canGrow[i][j] && difference[i][j] < 1) {
+				if (canGrow(i,j) && difference[i][j] < 1) {
 					runningTotal++;
 				}
 			}
@@ -182,5 +186,18 @@ public class Beard extends Entity {
 		
 		return runningTotal / totalArea;
 		
+	}
+	
+	public class Hair {
+		public float length;
+		public float angle;
+		
+		public void draw(ShapeRenderer shapeRenderer, float x, float y) {
+
+			float x2 = x,
+					y2 = y - length;
+					
+			shapeRenderer.line( x, y, x2, y2 );
+		}
 	}
 }
