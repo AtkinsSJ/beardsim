@@ -2,6 +2,7 @@ package uk.co.samatkins.beardsim.shaving;
 
 import uk.co.samatkins.Entity;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -154,14 +155,16 @@ public class Beard extends Entity {
 	public class Hair {
 		private float length;
 		private float angle;
+		private Color color;
 		
 		public Hair(float length) {
-			this(length, 270);
+			this(length, 270, Color.BLACK);
 		}
 		
-		public Hair(float length, float angle) {
+		public Hair(float length, float angle, Color color) {
 			this.length = length;
 			this.angle = angle;
+			this.color = color;
 		}
 		
 		public void draw(ShapeRenderer shapeRenderer, float x, float y) {
@@ -170,7 +173,8 @@ public class Beard extends Entity {
 			Vector2 end = new Vector2(length, 0);
 			end.setAngle(angle);
 			end.add(x,y);
-					
+			
+			shapeRenderer.setColor(color);
 			shapeRenderer.line( x, y, end.x, end.y );
 		}
 		
@@ -184,6 +188,14 @@ public class Beard extends Entity {
 		
 		public void setAngle(float angle) {
 			this.angle = angle;
+		}
+		
+		public Color getColor() {
+			return color;
+		}
+		
+		public void setColor(Color color) {
+			this.color = color;
 		}
 		
 		public void grow(float amount) {
