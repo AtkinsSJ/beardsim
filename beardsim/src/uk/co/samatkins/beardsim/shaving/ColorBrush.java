@@ -3,10 +3,12 @@ package uk.co.samatkins.beardsim.shaving;
 import uk.co.samatkins.beardsim.shaving.Beard.Hair;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class ColorBrush extends Tool {
 	
@@ -14,16 +16,20 @@ public class ColorBrush extends Tool {
 	
 	private ShapeRenderer shapeRenderer;
 
-	public ColorBrush(Color color) {
+	public ColorBrush(Skin skin, Color color) {
 		super();
 		this.color = color;
 		
 		shapeRenderer = new ShapeRenderer();
 		setSize(20, 10);
+		
+		sprite = new Sprite(skin.getRegion("colorbrush"));
+		setSpriteOffset(getWidth()/2, sprite.getHeight() - getHeight()/2);
 	}
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+		super.draw(batch, parentAlpha);
 		batch.end();
 		
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());

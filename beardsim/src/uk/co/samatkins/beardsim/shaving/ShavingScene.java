@@ -39,8 +39,8 @@ public class ShavingScene extends Scene {
 		
 		toolShelf = new ToolShelf(game.getSkin());
 		razor = new Razor(skin);
-		comb = new Comb();
-		colorBrush = new ColorBrush(Color.ORANGE);
+		comb = new Comb(skin);
+		colorBrush = new ColorBrush(skin, Color.ORANGE);
 		
 		table.bottom();
 		
