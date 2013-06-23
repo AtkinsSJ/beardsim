@@ -5,42 +5,72 @@ filter: Nearest,Nearest
 repeat: none
 face
   rotate: false
-  xy: 1, 235
+  xy: 1, 238
   size: 480, 640
   orig: 480, 640
   offset: 0, 0
   index: -1
 shelf
   rotate: false
-  xy: 1, 183
+  xy: 1, 186
   size: 480, 50
   orig: 480, 50
   offset: 0, 0
   index: -1
 comb
   rotate: false
-  xy: 1, 131
+  xy: 1, 134
   size: 200, 50
   orig: 200, 50
   offset: 0, 0
   index: -1
 razor
   rotate: false
-  xy: 1, 1
+  xy: 1, 4
   size: 50, 128
   orig: 50, 128
   offset: 0, 0
   index: -1
 colorbrush
   rotate: false
-  xy: 483, 747
+  xy: 483, 750
   size: 20, 128
   orig: 20, 128
   offset: 0, 0
   index: -1
+button
+  rotate: false
+  xy: 505, 872
+  size: 6, 6
+  split: 2, 2, 2, 2
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
+sliderdot
+  rotate: false
+  xy: 505, 864
+  size: 6, 6
+  split: 2, 2, 2, 2
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
 blank
   rotate: false
-  xy: 203, 180
+  xy: 203, 183
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+nothing
+  rotate: false
+  xy: 1, 1
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+windowback
+  rotate: false
+  xy: 53, 131
   size: 1, 1
   orig: 1, 1
   offset: 0, 0

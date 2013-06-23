@@ -28,15 +28,16 @@ public class HSVColor {
 		int chroma;
 		
 		int biggest = Math.max(Math.max(r, g), b);
-		if (biggest == r) {
-			chroma = r - Math.min(g, b);
-			hue = (g-b)/chroma;
+		
+		if (biggest == b) {
+			chroma = b - Math.min(r, g);
+			hue = (r-g)/(chroma+4);
 		} else if (biggest == g) {
 			chroma = g - Math.min(r, b);
 			hue = (b-r)/(chroma+2);
-		} else if (biggest == b) {
-			chroma = b - Math.min(r, g);
-			hue = (r-g)/(chroma+4);
+		} else if (biggest == r) {
+			chroma = r - Math.min(g, b);
+			hue = (g-b)/chroma;
 		} else {
 			chroma = 0;
 			hue = 0;
@@ -44,6 +45,7 @@ public class HSVColor {
 		val = biggest;
 		
 		sat = chroma / val;
+		val /= 255f;
 		
 		return new HSVColor(hue, sat, val);
 	}

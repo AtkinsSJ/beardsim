@@ -50,5 +50,15 @@ public class ColorBrush extends Tool {
 	protected void useOnHair(Hair hair, Vector2 movement) {
 		hair.setColor(color);
 	}
+	
+	@Override
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
+	@Override
+	public Color getColor() {
+		return this.color;
+	}
 
 }

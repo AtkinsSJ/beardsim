@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 
 public class ShavingScene extends Scene {
 	
@@ -26,6 +28,8 @@ public class ShavingScene extends Scene {
 	private Label symmetryLabel;
 	
 	private Vector2 mousePos;
+	
+	private ColorSelectionWindow colorWindow;
 	
 	public ShavingScene(BeardSim game) {
 		super(game);
@@ -50,15 +54,21 @@ public class ShavingScene extends Scene {
 		table.add(symmetryLabel).row();
 		
 		table.add(toolShelf).colspan(2);
+		
+		// Colour selection window
+		colorWindow = new ColorSelectionWindow(this, skin);
 	}
 	
 	@Override
 	public void show() {
-		add(face);
 		super.show();
+		add(face);
+		face.toBack();
 		add(razor);
 		add(comb);
 		add(colorBrush);
+		
+		addActor(colorWindow);
 		
 		setTool(razor);
 		
@@ -68,6 +78,12 @@ public class ShavingScene extends Scene {
 	public void setTool(Tool tool) {
 		if (currentTool != null) {
 			currentTool.setVisible(false);
+		}
+		
+		if (tool == colorBrush) {
+			// Show colour picker
+			colorWindow.toFront();
+			colorWindow.setVisible(true);
 		}
 		
 		currentTool = tool;

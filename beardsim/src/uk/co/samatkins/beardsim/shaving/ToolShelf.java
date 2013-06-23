@@ -35,7 +35,7 @@ public class ToolShelf extends Table {
 		private ShavingScene shavingScene;
 		
 		public ToolButton(Skin skin, String toolName, ShavingScene shavingScene) {
-			super(skin.getDrawable(toolName), null, skin.getDrawable("blank"));
+			super(skin.getDrawable(toolName), null, skin.getDrawable("nothing"));
 			
 			this.shavingScene = shavingScene;
 			this.tool = shavingScene.getTool(toolName);
