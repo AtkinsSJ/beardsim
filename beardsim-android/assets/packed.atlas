@@ -5,9 +5,16 @@ filter: Nearest,Nearest
 repeat: none
 face
   rotate: false
-  xy: 1, 183
+  xy: 1, 235
   size: 480, 640
   orig: 480, 640
+  offset: 0, 0
+  index: -1
+shelf
+  rotate: false
+  xy: 1, 183
+  size: 480, 50
+  orig: 480, 50
   offset: 0, 0
   index: -1
 comb
@@ -26,8 +33,15 @@ razor
   index: -1
 colorbrush
   rotate: false
-  xy: 483, 695
+  xy: 483, 747
   size: 20, 128
   orig: 20, 128
+  offset: 0, 0
+  index: -1
+blank
+  rotate: false
+  xy: 203, 180
+  size: 1, 1
+  orig: 1, 1
   offset: 0, 0
   index: -1

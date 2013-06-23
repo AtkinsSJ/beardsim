@@ -37,10 +37,11 @@ public class ShavingScene extends Scene {
 		face = new Face(skin.getRegion("face"));
 		beard = face.getBeard();
 		
-		toolShelf = new ToolShelf(game.getSkin());
 		razor = new Razor(skin);
 		comb = new Comb(skin);
 		colorBrush = new ColorBrush(skin, Color.ORANGE);
+		
+		toolShelf = new ToolShelf(this, game.getSkin());
 		
 		table.bottom();
 		
@@ -59,7 +60,7 @@ public class ShavingScene extends Scene {
 		add(comb);
 		add(colorBrush);
 		
-		setTool(colorBrush);
+		setTool(razor);
 		
 		setSymmetryLabel( beard.evaluateSymmetry());
 	}
@@ -94,12 +95,14 @@ public class ShavingScene extends Scene {
 	
 	@Override
 	public boolean touchDown(float x, float y, int pointer, int button) {
+		super.touchDown(x, y, pointer, button);
 		mousePos.set(x, this.getHeight() - y);
 		return true;
 	}
 	
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		super.touchDragged(screenX, screenY, pointer);
 //		beard.shave(razor.getRotatedRectangle());
 		currentTool.use(beard, new Vector2(screenX, getHeight() - screenY).sub(mousePos));
 		return true;
@@ -107,6 +110,7 @@ public class ShavingScene extends Scene {
 	
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		super.touchUp(screenX, screenY, pointer, button);
 		setSymmetryLabel(beard.evaluateSymmetry());
 		return true;
 	}
@@ -114,6 +118,18 @@ public class ShavingScene extends Scene {
 	public void setSymmetryLabel(float symmetry) {
 		DecimalFormat fmt = new DecimalFormat("0.00%");
 		symmetryLabel.setText(fmt.format(symmetry));
+	}
+
+	public Tool getTool(String toolName) {
+		if (toolName.equals("razor")) {
+			return razor;
+		} else if (toolName.equals("comb")) {
+			return comb;
+		} else if (toolName.equals("colorbrush")) {
+			return colorBrush;
+		}
+		
+		return null;
 	}
 
 }
