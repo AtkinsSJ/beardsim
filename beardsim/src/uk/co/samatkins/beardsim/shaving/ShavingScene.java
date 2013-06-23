@@ -16,6 +16,7 @@ public class ShavingScene extends Scene {
 	private Face face;
 	private Beard beard;
 	
+	private ToolShelf toolShelf;
 	private Tool currentTool;
 	private Razor razor;
 	private Comb comb;
@@ -33,6 +34,7 @@ public class ShavingScene extends Scene {
 		face = new Face(game.getSkin().getRegion("face"));
 		beard = face.getBeard();
 		
+		toolShelf = new ToolShelf(game.getSkin());
 		razor = new Razor();
 		comb = new Comb();
 		colorBrush = new ColorBrush(Color.ORANGE);
@@ -42,6 +44,8 @@ public class ShavingScene extends Scene {
 		table.add("Symmetry: ");
 		symmetryLabel = new Label("", game.getSkin());
 		table.add(symmetryLabel).row();
+		
+		table.add(toolShelf).colspan(2);
 	}
 	
 	@Override
@@ -75,6 +79,12 @@ public class ShavingScene extends Scene {
 		} else if (keyCode == Keys.S) {
 			// Evaluate symmetry
 			Gdx.app.debug("Beard Symmetry", "" + beard.evaluateSymmetry());
+		} else if (keyCode == Keys.NUM_1) {
+			setTool(razor);
+		} else if (keyCode == Keys.NUM_2) {
+			setTool(comb);
+		} else if (keyCode == Keys.NUM_3) {
+			setTool(colorBrush);
 		}
 		return super.keyDown(keyCode);
 	}
