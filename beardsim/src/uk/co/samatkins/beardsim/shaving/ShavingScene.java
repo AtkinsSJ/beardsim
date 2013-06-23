@@ -76,21 +76,12 @@ public class ShavingScene extends Scene {
 	}
 	
 	@Override
-	public boolean keyDown(int keyCode) {
-		if (keyCode == Keys.SPACE) {
-			beard.grow(0.5f);
-			return true;
-		} else if (keyCode == Keys.S) {
-			// Evaluate symmetry
-			Gdx.app.debug("Beard Symmetry", "" + beard.evaluateSymmetry());
-		} else if (keyCode == Keys.NUM_1) {
-			setTool(razor);
-		} else if (keyCode == Keys.NUM_2) {
-			setTool(comb);
-		} else if (keyCode == Keys.NUM_3) {
-			setTool(colorBrush);
+	public void update(float delta) {
+		super.update(delta);
+		
+		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+			beard.grow(delta * 2.0f);
 		}
-		return super.keyDown(keyCode);
 	}
 	
 	@Override
