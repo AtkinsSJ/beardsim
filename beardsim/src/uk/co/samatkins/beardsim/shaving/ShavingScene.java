@@ -49,8 +49,8 @@ public class ShavingScene extends Scene {
 		
 		table.bottom();
 		
-		table.add("Symmetry: ");
-		symmetryLabel = new Label("", game.getSkin());
+		table.add("Symmetry: ", "default-font", Color.WHITE);
+		symmetryLabel = new Label("", game.getSkin(), "default-font", Color.WHITE);
 		table.add(symmetryLabel).row();
 		
 		table.add(toolShelf).colspan(2);
