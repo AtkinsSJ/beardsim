@@ -10,6 +10,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class ShavingScene extends Scene {
 	
@@ -31,11 +32,13 @@ public class ShavingScene extends Scene {
 		backgroundColor = Color.WHITE;
 		mousePos = new Vector2();
 		
-		face = new Face(game.getSkin().getRegion("face"));
+		Skin skin = game.getSkin();
+		
+		face = new Face(skin.getRegion("face"));
 		beard = face.getBeard();
 		
 		toolShelf = new ToolShelf(game.getSkin());
-		razor = new Razor();
+		razor = new Razor(skin);
 		comb = new Comb();
 		colorBrush = new ColorBrush(Color.ORANGE);
 		

@@ -21,6 +21,8 @@ public class Entity extends Widget {
 	
 	protected boolean spriteCentred = false;
 	
+	protected Vector2 spriteOffset = new Vector2(0,0);
+	
 	/**
 	 * Whether to transform the sprite automatically based on the Entity's transformations.
 	 */
@@ -51,10 +53,12 @@ public class Entity extends Widget {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		if (this.isVisible() && (sprite != null)) {
 			if (this.spriteCentred) {
-				sprite.setPosition(this.getX() + (this.getWidth()/2) - (sprite.getWidth()/2),
-						this.getY() + (this.getHeight()/2) - (sprite.getHeight()/2));
+				sprite.setPosition(
+						this.getX() + (this.getWidth()/2) - (sprite.getWidth()/2),
+						this.getY() + (this.getHeight()/2) - (sprite.getHeight()/2)
+				);
 			} else {
-				sprite.setPosition(this.getX(), this.getY());
+				sprite.setPosition(this.getX() - spriteOffset.x, this.getY() - spriteOffset.y);
 			}
 			
 			if (transformSprite) {
@@ -84,6 +88,11 @@ public class Entity extends Widget {
 	
 	public float getCentreY() {
 		return getY() + (getHeight()/2);
+	}
+	
+	public void setSpriteOffset(float offX, float offY) {
+		spriteOffset.set(offX, offY);
+		sprite.setOrigin(offX, offY);
 	}
 
 }
